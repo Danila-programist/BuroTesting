@@ -7,6 +7,7 @@ import struct
 import logging
 from pathlib import Path
 from datetime import datetime
+from typing import List
 from logger_setup import setup_console_logger
 
 logger: logging.Logger = setup_console_logger("converter_logger")
@@ -87,3 +88,8 @@ def save_float_conversion(value: float) -> None:
         logger.error(f"Неожиданная ошибка: {e}")
 
 
+if __name__ == "__main__":
+    numbers: List[float] = [1.0, 2.718, 42.0, -3.14, 100.5]
+
+    for num in numbers:
+        save_float_conversion(num)
