@@ -62,8 +62,6 @@ def save_float_conversion(value: float) -> None:
     Args:
         value (float): Число с плавающей запятой для преобразования
 
-    Returns:
-        bool: True если успешно, False в случае ошибки
 
     Raises:
         TypeError: Если value не является типом float.
@@ -72,8 +70,6 @@ def save_float_conversion(value: float) -> None:
     try:        
         bytes_data: bytes = float_to_bytes(value)  
         hex_string: str = bytes_to_string(bytes_data) 
-        filename: str = "float_conversion_result.txt"
-
         output_dir: Path = Path("logs")
         output_dir.mkdir(exist_ok=True)
 
