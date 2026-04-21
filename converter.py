@@ -1,6 +1,6 @@
 """
 Файл, содержащий функции для конвертации данных из 
-float в double и bytes в строку. 
+float в bytes и bytes в строку. 
 """
 
 import struct
@@ -25,4 +25,22 @@ def float_to_bytes(value: float) -> bytes:
     return result
 
 
+def bytes_to_string(value: bytes) -> str:
+    """
+    Преобразует последовательность байтов в шестнадцатеричную строку.
+
+    Args:
+        value (bytes): Последовательность байтов, которую нужно преобразовать
+
+    Returns:
+        str: Строка, полученная из последовательности байтов
+
+    Raises:
+        TypeError: Если value не является типом bytes.
+    """
+    if not isinstance(value, bytes):
+        raise TypeError("Значение value должно быть типа bytes")
+
+    result: str = value.hex() 
+    return result
 
