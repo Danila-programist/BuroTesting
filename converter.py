@@ -4,6 +4,10 @@ float в bytes и bytes в строку.
 """
 
 import struct
+import logging
+from logger_setup import setup_console_logger
+
+logger: logging.Logger = setup_console_logger("converter_logger")
 
 def float_to_bytes(value: float) -> bytes:
     """
@@ -21,7 +25,9 @@ def float_to_bytes(value: float) -> bytes:
     if not isinstance(value, float):
         raise TypeError("Значение value должно быть типа float")
 
+    logger.info(f"float_to_bytes вызвана с аргументом: {value}")
     result: bytes = struct.pack('d', value)
+    logger.info(f"float_to_bytes вернула: {result}")
     return result
 
 
@@ -41,6 +47,8 @@ def bytes_to_string(value: bytes) -> str:
     if not isinstance(value, bytes):
         raise TypeError("Значение value должно быть типа bytes")
 
+    logger.info(f"bytes_to_string вызвана с аргументом: {value}")
     result: str = value.hex() 
+    logger.info(f"bytes_to_string вернула: {result}")
     return result
 
