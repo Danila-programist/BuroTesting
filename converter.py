@@ -63,7 +63,6 @@ def save_float_conversion(value: float) -> None:
     Args:
         value (float): Число с плавающей запятой для преобразования
 
-
     Raises:
         TypeError: Если value не является типом float.
         IOError: Если возникает ошибка при записи в файл.
@@ -74,7 +73,7 @@ def save_float_conversion(value: float) -> None:
         output_dir: Path = Path("logs")
         output_dir.mkdir(exist_ok=True)
 
-        filename: str = str(output_dir / f"{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
+        filename: str = str(output_dir / f"{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}.txt")
 
         with open(filename, "w", encoding="utf-8") as f:
             f.write(hex_string)
