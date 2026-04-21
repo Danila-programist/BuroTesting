@@ -1,10 +1,12 @@
 """
 Файл, содержащий функции для конвертации данных из 
-float в bytes и bytes в строку. 
+float в bytes и bytes в строку, а также функцию для сохранения результата в файл от второй функции.
 """
 
 import struct
 import logging
+from pathlib import Path
+from datetime import datetime
 from logger_setup import setup_console_logger
 
 logger: logging.Logger = setup_console_logger("converter_logger")
@@ -51,4 +53,41 @@ def bytes_to_string(value: bytes) -> str:
     result: str = value.hex() 
     logger.info(f"bytes_to_string вернула: {result}")
     return result
+
+
+def save_float_conversion(value: float) -> None:
+    """
+    Преобразует число float в hex-строку и сохраняет результат в файл.
+
+    Args:
+        value (float): Число с плавающей запятой для преобразования
+
+    Returns:
+        bool: True если успешно, False в случае ошибки
+
+    Raises:
+        TypeError: Если value не является типом float.
+        IOError: Если возникает ошибка при записи в файл.
+    """
+    try:        
+        bytes_data: bytes = float_to_bytes(value)  
+        hex_string: str = bytes_to_string(bytes_data) 
+        filename: str = "float_conversion_result.txt"
+
+        output_dir: Path = Path("logs")
+        output_dir.mkdir(exist_ok=True)
+
+        filename: str = str(output_dir / f"{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
+
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(hex_string)
+        
+        logger.info(f"Результат сохранён в {filename}")
+    except TypeError as e:
+        logger.error(f"Ошибка типа: {e}")
+    except IOError as e:
+        logger.error(f"Ошибка записи в файл {filename}: {e}")
+    except Exception as e:
+        logger.error(f"Неожиданная ошибка: {e}")
+
 
